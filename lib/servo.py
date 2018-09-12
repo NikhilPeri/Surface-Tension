@@ -1,9 +1,9 @@
 class Servo(object):
-    def __init__(self, channel, com):
-        if not com.is_open:
-            raise ValueError("COM port is not open")
+    def __init__(self, channel, comm):
+        if not comm.is_open:
+            raise ValueError("comm port is not open")
         self.channel = channel
-        self.com = com
+        self.comm = comm
 
         self.write(-1.0)
 
@@ -11,7 +11,7 @@ class Servo(object):
     	if position < -1.0 or position > 1.0:
     		raise ValueError("{} not in range (-1.0, 1.0)".format(position))
 
-        self.com.write(
+        self.comm.write(
             "#{}P{}\r".format(
                 self.channel,
                 str(int(500*(position+1) + 1000))

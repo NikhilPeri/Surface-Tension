@@ -1,6 +1,6 @@
 import serial
 from time import sleep
-from lib.wall import Wall
+from lb.wall import Wall
 
 def run(wall):
     for i in range(3):

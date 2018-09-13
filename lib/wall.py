@@ -11,13 +11,15 @@ class Wall(object):
                 self.servos[row][column] = Servo(channel, comm)
 
     def write_servo(self, row, col, position):
-        self.servos[row][col].write(position)
+        self.servos[str(row)][str(col)].write(position)
 
     def write_row(self, row, position):
+        row = str(row)
         for servo in self.servos[row].values():
             servo.write(position)
 
     def write_column(self, col, position):
+        col = str(col)
         for columns in self.servos.values():
             if columns.has_key(col):
                 columns[col].write(position)

@@ -1,3 +1,4 @@
+from time import sleep
 from lib.constants import DEFAULT_CHANNEL_MAPPINGS
 from lib.servo import Servo
 
@@ -8,7 +9,6 @@ class Wall(object):
         for row, columns in self.servos.items():
             for column, channel in columns.items():
                 self.servos[row][column] = Servo(channel, comm)
-                sleep(1)
 
     def write_servo(self, row, col, position):
         self.servos[row][col].write(position)

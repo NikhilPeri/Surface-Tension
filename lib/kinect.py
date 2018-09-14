@@ -18,7 +18,7 @@ class Kinect(object):
             self.debug_plot = (
                 plt.figure()
                 .add_subplot(111)
-                .imshow(np.random.rand(WALL_SHAPE), cmap='hot')
+                .imshow(np.zeros(WALL_SHAPE), cmap='hot')
             )
             plt.legend()
             plt.show(block=False)
@@ -30,13 +30,12 @@ class Kinect(object):
             frame, _ = kinect.sync_get_depth()
             return frame.astype(np.uint16)
         except:
-            logging.error('Failed to read frame')
             return np.full(FRAME_SHAPE, 255)
 
     def get_reduced_frame(self):
         frame = self.calibration_frame - self.get_frame()
         frame = block_reduce(frame, BLOCK_SIZE, np.mean)
-        frame = (frame < 100).astype(np.uint8)
+        frame = (frame > 0).astype(np.uint8)
 
         return frame
 

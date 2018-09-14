@@ -17,6 +17,8 @@ def run(wall):
     	wall.write_row('C', -1)
     	sleep(3)
 
+    wall.write_row('D', -1)
+    wall.write_row('E', -1)
 
 
 if __name__ == '__main__':

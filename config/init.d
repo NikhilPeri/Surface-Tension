@@ -11,5 +11,4 @@
 #                    at the University of Ottawa.
 ### END INIT INFO
 
-cd $SURFACE_TENSION_DIR;
-python -m controller
+cd $SURFACE_TENSION_DIR; python -m controller

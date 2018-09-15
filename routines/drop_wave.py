@@ -1,6 +1,6 @@
 import serial
-from time import sleep
-from lb.wall import Wall
+import time
+from lib.wall import Wall
 
 def run(wall):
     for i in range(3):
@@ -14,7 +14,7 @@ def run(wall):
         wall.write_servo('B','6', -1)
         wall.write_servo('B','8', -1)
         wall.write_servo('B','10', -1)
-    	sleep(3)
+    	time.sleep(3)
     	wall.write_servo('D','6', 0.8)
     	wall.write_servo('D','10', 0.8)
         wall.write_servo('E','7', 0.8)
@@ -31,7 +31,7 @@ def run(wall):
         wall.write_servo('B','4', -1)
         wall.write_servo('B','12', -1)
         wall.write_servo('B','14', -1)
-    	sleep(3)
+    	time.sleep(3)
     	wall.write_servo('D','4', 0.8)
         wall.write_servo('D','12', 0.8)
         wall.write_servo('E','5', 0.8)
@@ -42,7 +42,7 @@ def run(wall):
         wall.write_servo('B','8', 0.8)
         wall.write_servo('B','10', 0.8)
         wall.write_servo('D','8', -1)
-    	sleep(3)
+    	time.sleep(3)
     	wall.write_servo('D','2', 0.8)
         wall.write_servo('D','14', 0.8)
         wall.write_servo('E','3', 0.8)
@@ -59,7 +59,7 @@ def run(wall):
         wall.write_servo('E','9', -1)
         wall.write_servo('C','7', -1)
         wall.write_servo('C','9', -1)
-    	sleep(3)  
+    	time.sleep(3)
 
 
 

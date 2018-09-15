@@ -1,21 +1,21 @@
 import serial
-from time import sleep
-from lb.wall import Wall
+import time
+from lib.wall import Wall
 
 def run(wall):
     for i in range(3):
     	wall.write_row('B', 0.8)
     	wall.write_row('D', -1)
-    	sleep(3)
+    	time.sleep(3)
     	wall.write_row('C', 0.8)
     	wall.write_row('E', -1)
-    	sleep(3)
+    	time.sleep(3)
     	wall.write_row('D', 0.8)
     	wall.write_row('B', -1)
-    	sleep(3)
+    	time.sleep(3)
     	wall.write_row('E', 0.8)
     	wall.write_row('C', -1)
-    	sleep(3)
+    	time.sleep(3)
 
     wall.write_row('D', -1)
     wall.write_row('E', -1)

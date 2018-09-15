@@ -1,38 +1,60 @@
-from routines import list_routines
-from lib.wall import Wall
-import time
-from datetime import datetime
 import sys
-import os
+import time
 import serial
-import logging
+import threading
+from datetime import datetime
 
-'''
+from routines import list_routines
+from lib.logging import configure_logging
+from lib.wall import Wall
+
+INTERVALS_FILE_PATH='config/intervals.yml'
 DEFAULT_COM_PORT='/dev/ttyUSB0'
 
-def connect_wall(comm, retry=5):
-    for i in range(retry):
+class Controller(threading.Thread):
+    def __init__(self, com_port='/dev/ttyUSB0'):
+        configure_logging()
+        self.connect_comm(com_port)
+        self.routines = list_routines()
+        self.wall = Wall(self.comm)
+        self.active = False
+
+    def run_routine(self, routine_name):
         try:
-            wall = Wall
-        except e:
-'''
-def configure_logging():
-    formatter = logging.Formatter(
-        fmt='[%(levelname)s] %(asctime)s.%(msecs)03d | %(message)s',
-        datefmt='%Y-%m-%d %I:%M:%-S'
-    )
-    file_stream = logging.StreamHandler(
-        stream=open(os.path.join('logs', "{}.log".format(datetime.now().strftime('%Y-%m-%d-%H%M'))), 'w+'))
-    file_stream.setFormatter(formatter)
-    file_stream.setLevel(20)
-    console_stream = logging.StreamHandler(stream=sys.stdout)
-    console_stream.setFormatter(formatter)
-    console_stream.setLevel(30)
+            self.routines[routine_name].run(self.wall)
+        except Exception as e:
+            logging.error('Routine "{}" failed'.format(routine_name))
+            logging.error(e)
 
-    logging.getLogger().setLevel(20)
-    logging.getLogger().addHandler(file_stream)
-    logging.getLogger().addHandler(console_stream)
+    def activate(self):
+        if not self.active:
+            Thread.__init__(self)
+            self.active = True
+            self.start()
+            if not self.is_alive():
+                logging.error('Failed to activate controller')
 
-if __name__ == '__main__':
-    configure_logging()
-    logging.warn('YOOO')
+    def deactivate(self):
+        if self.active:
+            self.active = False
+            self.join()
+            if self.is_alive():
+                raise Exception('Failed to deactivate controller')
+
+    def run(self):
+        while self.active:
+            
+    def random_routine(self):
+        return self.routines.values()[0]
+
+    def connect_comm(self, com_port, retry=5, timeout=15):
+        for i in range(retry):
+            try:
+                self.comm = serial.Serial(com_port, 115200)
+                return comm
+            except Exception as e:
+                logging.error(e)
+                logging.warn('Retry count {}'.format(i))
+                time.sleep(timeout)
+
+        raise IOError('Failed to connect to wall on comm: {}'.format(comm))

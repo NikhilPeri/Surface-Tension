@@ -1,5 +1,5 @@
 import serial
-from time import sleep
+import time 
 import numpy as np
 
 from lib.wall import Wall
@@ -11,10 +11,10 @@ def run(wall):
 		even = 2 + 2*np.random.randint(0, 7, size=2)
 		wall.write_servo('B', str(even[0]), -1.0 + rand[0]*2.0)
 		wall.write_servo('C', str(odd[0]), -1.0 + rand[1]*2.0)
-		sleep(3*rand[0])
+		time.sleep(3*rand[0])
 		wall.write_servo('D', str(even[1]), -1.0 + rand[2]*2.0)
 		wall.write_servo('E', str(odd[1]), -1.0 + rand[3]*2.0)
-		sleep(3*rand[1])
+		time.sleep(3*rand[1])
 
 
 if __name__ == '__main__':

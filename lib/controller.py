@@ -62,7 +62,6 @@ class Controller(Thread):
 
     def valid_run_interval(self):
         current_time = datetime.now()
-        import pdb; pdb.set_trace()
         intervals = self.intervals[DAYS_OF_WEEK[current_time.weekday()]]
         for interval in intervals:
             if interval['start'] < current_time.time() and current_time.time() < interval['stop']:
@@ -80,7 +79,7 @@ class Controller(Thread):
                 logging.warn('Retry count {}'.format(i))
                 time.sleep(timeout)
 
-        raise IOError('Failed to connect to wall on comm: {}'.format(comm))
+        raise IOError('Failed to connect to wall on comm: {}'.format(com_port))
 
     def load_intervals(self, intervals_file):
         self.intervals = {}

@@ -12,7 +12,7 @@ INTERVALS_FILE_PATH='config/intervals.yml'
 DEFAULT_COM_PORT='/dev/ttyUSB0'
 
 class Controller(threading.Thread):
-    def __init__(self, com_port='/dev/ttyUSB0'):
+    def __init__(self, com_port='/dev/ttyUSB0', ):
         configure_logging()
         self.connect_comm(com_port)
         self.routines = list_routines()
@@ -43,7 +43,8 @@ class Controller(threading.Thread):
 
     def run(self):
         while self.active:
-            
+            pass
+
     def random_routine(self):
         return self.routines.values()[0]
 
@@ -58,3 +59,7 @@ class Controller(threading.Thread):
                 time.sleep(timeout)
 
         raise IOError('Failed to connect to wall on comm: {}'.format(comm))
+
+if __name__ == '__main__':
+    configure_logging()
+    logging.warn('BITCHHH')

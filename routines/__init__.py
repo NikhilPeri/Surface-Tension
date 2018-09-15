@@ -1,7 +1,6 @@
 import os
 import importlib
 import numpy as np
-import matplotlib.pyplot as plt
 
 from lib.constants import DEFAULT_CHANNEL_MAPPINGS
 from lib.servo import Servo
@@ -23,7 +22,7 @@ def list_routines():
         routines[name] = module
 
     return routines
-
+'''
 class FakeServo(Servo):
     def __init__(self, row, column, plot):
         self.row = row
@@ -52,3 +51,4 @@ class FakeWall(Wall):
         for row, columns in self.servos.items():
             for column, channel in columns.items():
                 self.servos[row][column] = FakeServo(ROW_MAPPTINGS[row], int(column), self.plot)
+'''

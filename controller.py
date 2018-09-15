@@ -1,6 +1,7 @@
 import sys
 import time
 import serial
+import logging
 import threading
 from datetime import datetime
 

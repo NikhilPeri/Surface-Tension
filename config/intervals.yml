@@ -105,5 +105,5 @@ friday:
     stop:  '22:00'
 saturday:
   - start: '18:30'
-    stop:  '23:59'
+    stop:  '19:05'
 sunday: []

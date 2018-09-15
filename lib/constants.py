@@ -1,3 +1,5 @@
+DAYS_OF_WEEK=['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+
 '''
 A row-column lookup table for channel mappings
 {

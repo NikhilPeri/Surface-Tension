@@ -1,6 +1,7 @@
 from time import sleep
 from lib.constants import DEFAULT_CHANNEL_MAPPINGS
 from lib.servo import Servo
+import numpy as np
 
 # Wall object takes in it's own instance, set the servo to comm
 class Wall(object):
@@ -17,8 +18,21 @@ class Wall(object):
     
     # Write to the wall
     def write(self, array):
-        pass
+        rowE, rowD, rowC, rowB = []
+        rowE = array[0]
+        rowD = array[1]
+        rowC = array[2]
+        rowB = array[3]
 
+        for i in range(len(rowE))
+            self.servos['E'][str((i*2)+3)].write(rowE[i])
+        for i in range(len(rowD))
+            self.servos['D'][str(i*2)+2].write(rowD[i])
+        for i in range(len(rowC))
+            self.servos['C'][str((i*2)+3)].write(rowC[i])
+        for i in range(len(rowB))
+            self.servos['B'][str(i*2)+2].write(rowB[i])
+    
     # Write to servo
     def write_servo(self, row, col, position):
         self.servos[str(row)][str(col)].write(position)

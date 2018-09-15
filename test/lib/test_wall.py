@@ -18,7 +18,7 @@ def test_init_wall_sets_list_servos_to_starting_position(mock_comm):
 def test_init_wall_creates_correct_number_of_servos(mock_comm):
     wall = Wall(mock_comm)
     assert len(wall.list_servos()) == 26
-'''
+
 def test_write_wall_writes_all_servos_on_wall(mock_comm):
     wall = Wall(mock_comm)
     wall.write([
@@ -30,7 +30,7 @@ def test_write_wall_writes_all_servos_on_wall(mock_comm):
 
     for servo in wall.list_servos():
         assert servo.position == 0.5
-'''
+
 def test_write_servo_sets_servo_to_desired_position(mock_comm):
     wall = Wall(mock_comm)
     wall.write_servo('C', '7', 0.314)

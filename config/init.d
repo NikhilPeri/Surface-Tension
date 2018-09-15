@@ -11,4 +11,4 @@
 #                    at the University of Ottawa.
 ### END INIT INFO
 
-cd /home/pi/surface-tension; python -m controller
+cd /home/pi/surface-tension; python -m lib.controller

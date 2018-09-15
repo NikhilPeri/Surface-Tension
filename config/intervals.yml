@@ -103,5 +103,7 @@ friday:
     stop:  '20:30'
   - start: '21:50'
     stop:  '22:00'
-saturday: []
+saturday:
+  - start: '18:30'
+    stop:  '23:59'
 sunday: []

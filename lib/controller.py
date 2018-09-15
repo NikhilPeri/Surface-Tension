@@ -1,6 +1,7 @@
 import sys
 import time
 import serial
+import signal
 import yaml
 import logging
 from numpy import random
@@ -30,6 +31,8 @@ class Controller(Thread):
     def run_routine(self, routine_name):
         try:
             self.routines[routine_name].run(self.wall)
+            self.wall.reset()
+            time.sleep(5)
         except Exception as e:
             logging.error('Routine "{}" failed'.format(routine_name))
             logging.error(e)
@@ -55,7 +58,7 @@ class Controller(Thread):
     def run(self):
         while self.active:
             if self.valid_run_interval():
-                self.run_routine(random.choice(self.routines.keys(), 1))
+                self.run_routine(random.choice(self.routines.keys()))
             else:
                 time.sleep(DEFAULT_TIMEOUT)
 
@@ -95,4 +98,6 @@ if __name__ == '__main__':
         com_port = sys.argv[1]
 
     controller = Controller(com_port)
+    signal.signal(signal.SIGINT, controller.deactivate)
+    signal.signal(signal.SIGTERM, controller.deactivate)
     controller.activate()

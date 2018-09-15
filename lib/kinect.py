@@ -5,7 +5,7 @@ import freenect as kinect
 import numpy as np
 
 FRAME_SHAPE=(480, 640)
-WALL_SHAPE=(6, 8)
+WALL_SHAPE=(4, 6)
 BLOCK_SIZE=(
     int(FRAME_SHAPE[0]/WALL_SHAPE[0]),
     int(FRAME_SHAPE[1]/WALL_SHAPE[1])
@@ -28,11 +28,12 @@ class Kinect(object):
     def get_frame(self):
         try:
             frame, _ = kinect.sync_get_depth()
-            return frame.astype(np.uint16)
+            return frame.astype(np.int16)
         except:
             return np.full(FRAME_SHAPE, 255)
 
     def get_reduced_frame(self):
+        import pdb; pdb.set_trace()
         frame = self.calibration_frame - self.get_frame()
         frame = block_reduce(frame, BLOCK_SIZE, np.mean)
         frame = (frame > 0).astype(np.uint8)

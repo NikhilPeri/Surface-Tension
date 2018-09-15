@@ -5,7 +5,7 @@ import threading
 from datetime import datetime
 
 from routines import list_routines
-from lib.logging import configure_logging
+from lib.logger import configure_logger
 from lib.wall import Wall
 
 INTERVALS_FILE_PATH='config/intervals.yml'
@@ -13,7 +13,7 @@ DEFAULT_COM_PORT='/dev/ttyUSB0'
 
 class Controller(threading.Thread):
     def __init__(self, com_port='/dev/ttyUSB0', ):
-        configure_logging()
+        configure_logger()
         self.connect_comm(com_port)
         self.routines = list_routines()
         self.wall = Wall(self.comm)
@@ -61,5 +61,5 @@ class Controller(threading.Thread):
         raise IOError('Failed to connect to wall on comm: {}'.format(comm))
 
 if __name__ == '__main__':
-    configure_logging()
+    configure_logger()
     logging.warn('BITCHHH')

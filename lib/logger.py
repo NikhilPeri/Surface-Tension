@@ -1,6 +1,6 @@
 import logging
 
-def configure_logging():
+def configure_logger():
     formatter = logging.Formatter(
         fmt='[%(levelname)s] %(asctime)s.%(msecs)03d | %(message)s',
         datefmt='%Y-%m-%d %I:%M:%-S'

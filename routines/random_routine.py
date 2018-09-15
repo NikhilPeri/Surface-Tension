@@ -4,6 +4,7 @@ import numpy as np
 
 from lib.wall import Wall
 
+# Run a random routine on the wall
 def run(wall):
 	for i in range(10):
 		rand = np.random.rand(4)
@@ -12,6 +13,7 @@ def run(wall):
 		wall.write_servo('B', str(even[0]), -1.0 + rand[0]*2.0)
 		wall.write_servo('C', str(odd[0]), -1.0 + rand[1]*2.0)
 		time.sleep(3*rand[0])
+		
 		wall.write_servo('D', str(even[1]), -1.0 + rand[2]*2.0)
 		wall.write_servo('E', str(odd[1]), -1.0 + rand[3]*2.0)
 		time.sleep(3*rand[1])

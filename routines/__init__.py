@@ -11,6 +11,7 @@ BLACKLIST = [
     'sample_routine.py'
 ]
 
+# List all the routines available for the wall
 def list_routines():
     routines = {}
 

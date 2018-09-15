@@ -2,6 +2,7 @@ import serial
 import time
 from lib.wall import Wall
 
+# Drop wave run
 def run(wall):
     for i in range(3):
     	wall.write_servo('D','8', 0.8)
@@ -15,6 +16,7 @@ def run(wall):
         wall.write_servo('B','8', -1)
         wall.write_servo('B','10', -1)
     	time.sleep(3)
+
     	wall.write_servo('D','6', 0.8)
     	wall.write_servo('D','10', 0.8)
         wall.write_servo('E','7', 0.8)
@@ -32,6 +34,7 @@ def run(wall):
         wall.write_servo('B','12', -1)
         wall.write_servo('B','14', -1)
     	time.sleep(3)
+
     	wall.write_servo('D','4', 0.8)
         wall.write_servo('D','12', 0.8)
         wall.write_servo('E','5', 0.8)
@@ -43,6 +46,7 @@ def run(wall):
         wall.write_servo('B','10', 0.8)
         wall.write_servo('D','8', -1)
     	time.sleep(3)
+
     	wall.write_servo('D','2', 0.8)
         wall.write_servo('D','14', 0.8)
         wall.write_servo('E','3', 0.8)
@@ -60,8 +64,6 @@ def run(wall):
         wall.write_servo('C','7', -1)
         wall.write_servo('C','9', -1)
     	time.sleep(3)
-
-
 
 if __name__ == '__main__':
     wall = Wall(serial.Serial('/dev/ttyUSB0', 115200))

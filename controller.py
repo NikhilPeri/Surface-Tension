@@ -12,6 +12,7 @@ from lib.wall import Wall
 INTERVALS_FILE_PATH='config/intervals.yml'
 DEFAULT_COM_PORT='/dev/ttyUSB0'
 
+# Controller for the wall
 class Controller(threading.Thread):
     def __init__(self, com_port='/dev/ttyUSB0', ):
         configure_logger()
@@ -20,6 +21,7 @@ class Controller(threading.Thread):
         self.wall = Wall(self.comm)
         self.active = False
 
+    # Run specific wall routine (pattern)
     def run_routine(self, routine_name):
         try:
             self.routines[routine_name].run(self.wall)
@@ -27,6 +29,7 @@ class Controller(threading.Thread):
             logging.error('Routine "{}" failed'.format(routine_name))
             logging.error(e)
 
+    # Activate the wall
     def activate(self):
         if not self.active:
             Thread.__init__(self)
@@ -35,6 +38,7 @@ class Controller(threading.Thread):
             if not self.is_alive():
                 logging.error('Failed to activate controller')
 
+    # Deactivate the wall
     def deactivate(self):
         if self.active:
             self.active = False
@@ -46,9 +50,11 @@ class Controller(threading.Thread):
         while self.active:
             pass
 
+    # Run a random routine from the list of routines
     def random_routine(self):
         return self.routines.values()[0]
 
+    # Connect to COM port in order to run
     def connect_comm(self, com_port, retry=5, timeout=15):
         for i in range(retry):
             try:

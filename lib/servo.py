@@ -1,3 +1,4 @@
+# Servo
 class Servo(object):
     def __init__(self, channel, comm):
         if not comm.is_open:
@@ -7,6 +8,7 @@ class Servo(object):
 
         self.write(-1.0)
 
+    # Write to the servo, 'move' it by position value
     def write(self, position):
     	if position < -1.0 or position > 1.0:
     		raise ValueError("{} not in range (-1.0, 1.0)".format(position))

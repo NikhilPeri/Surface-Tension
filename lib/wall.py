@@ -10,6 +10,9 @@ class Wall(object):
             for column, channel in columns.items():
                 self.servos[row][column] = Servo(channel, comm)
 
+    def write(self, array):
+        pass
+    
     def write_servo(self, row, col, position):
         self.servos[str(row)][str(col)].write(position)
 

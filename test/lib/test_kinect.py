@@ -18,9 +18,9 @@ def test_kinect_is_valid_import():
 
 @patch('lib.kinect.Kinect.get_frame', return_value=mock_frame())
 def test_get_reduced_frame_returns_correct_value(get_frame_mock, kinect):
-    assert kinect.get_reduced_frame() == np.array([
-        [],
-        [],
-        [],
-        [],
-    ])
+    assert (kinect.get_reduced_frame() == np.array([
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [1, 1, 1, 1, 1, 0],
+    ])).all()

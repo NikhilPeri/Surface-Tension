@@ -4,7 +4,7 @@ from lib.wall import Wall
 
 # Spiral wave run
 def run(wall):
-    for i in range(3):
+    for i in range(2):
         wall.write_servo('E', 3, 0.8)
         time.sleep(2)
 
@@ -109,8 +109,8 @@ def run(wall):
 
         wall.write_servo('C', 7, -1)
         time.sleep(2)
-        wall.write('C', 5, -1)
-        
+        wall.write_servo('C', 5, -1)
+
 if __name__ == '__main__':
     wall = Wall(serial.Serial('/dev/ttyUSB0', 115200))
     run(wall)

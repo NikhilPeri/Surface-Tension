@@ -3,6 +3,7 @@ from lib.constants import DEFAULT_CHANNEL_MAPPINGS
 from lib.servo import Servo
 import numpy as np
 
+ROWS=['E', 'D', 'C', 'B']
 # Wall object takes in it's own instance, set the servo to comm
 class Wall(object):
     def __init__(self, comm, channel_mappings=DEFAULT_CHANNEL_MAPPINGS):
@@ -15,24 +16,16 @@ class Wall(object):
     def reset(self):
         for servo in self.list_servos():
             servo.write(-1)
-    
+
     # Write to the wall
     def write(self, array):
-        rowE, rowD, rowC, rowB = []
-        rowE = array[0]
-        rowD = array[1]
-        rowC = array[2]
-        rowB = array[3]
+        for row_index, row in enumerate(array):
+            for col_index, position in enumerate(row):
+                if row_index % 2 == 0:
+                    self.write_servo(ROWS[row_index], 2*col_index + 3, position)
+                else:
+                    self.write_servo(ROWS[row_index], 2*col_index + 2, position)
 
-        for i in range(len(rowE))
-            self.servos['E'][str((i*2)+3)].write(rowE[i])
-        for i in range(len(rowD))
-            self.servos['D'][str(i*2)+2].write(rowD[i])
-        for i in range(len(rowC))
-            self.servos['C'][str((i*2)+3)].write(rowC[i])
-        for i in range(len(rowB))
-            self.servos['B'][str(i*2)+2].write(rowB[i])
-    
     # Write to servo
     def write_servo(self, row, col, position):
         self.servos[str(row)][str(col)].write(position)

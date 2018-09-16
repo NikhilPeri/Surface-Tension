@@ -6,7 +6,7 @@ import numpy as np
 import logging
 
 FRAME_SHAPE=(480, 640)
-WALL_SHAPE=(4, 6)
+WALL_SHAPE=(6, 8)
 BLOCK_SIZE=(
     int(FRAME_SHAPE[0]/WALL_SHAPE[0]),
     int(FRAME_SHAPE[1]/WALL_SHAPE[1])
@@ -27,9 +27,8 @@ class Kinect(object):
             self.debug_plot = (
                 plt.figure()
                 .add_subplot(111)
-                .imshow(np.zeros(WALL_SHAPE), cmap='hot')
+                .imshow(np.ones(WALL_SHAPE), cmap='hot')
             )
-            plt.legend()
             plt.show(block=False)
         else:
             self.debug_plot = None
@@ -43,8 +42,10 @@ class Kinect(object):
 
     def get_reduced_frame(self):
         frame = self.calibration_frame - self.get_frame()
-        frame = np.delete(block_reduce(frame, BLOCK_SIZE, np.mean), -1, axis=1)
         frame = (frame > 0).astype(np.uint8)
+        frame = block_reduce(frame, BLOCK_SIZE, np.mean)[1:5, 1:7]
+        frame = (frame > 0).astype(np.uint8)
+        frame = np.flip(frame, axis=1)
 
         return frame
 
@@ -53,6 +54,6 @@ class Kinect(object):
             return
 
         self.debug_plot.set_array(
-            self.get_reduced_frame()
+            6000*self.get_reduced_frame()
         )
         self.debug_plot.figure.canvas.draw()

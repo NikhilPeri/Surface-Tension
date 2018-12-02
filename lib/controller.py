@@ -8,12 +8,9 @@ from numpy import random
 from threading import Thread
 from datetime import datetime
 
-import routines.kinect as kinect_routine
 from routines import list_routines
 from lib.logger import configure_logger
-from lib.constants import DAYS_OF_WEEK
 from lib.wall import Wall
-from lib.kinect import Kinect
 from gpiozero import Button, LED
 
 DEFAULT_COM_PORT='/dev/ttyUSB0'
@@ -23,28 +20,20 @@ DEFAULT_TIMEOUT=15
 
 # Controller for the wall
 class Controller(Thread):
-    def __init__(self, com_port, intervals_file='config/intervals.yml'):
+    def __init__(self, com_port):
         self.active = False
         configure_logger()
-        self.load_intervals(intervals_file)
         self.connect_comm(com_port)
 
-        self.routine_interrupt = False
-        time.sleep(10)
         try:
             self.routine_indicator = LED(ROUTINE_LED_PIN)
             self.routine_indicator.on()
-            time.sleep(5)
+            time.sleep(3)
             self.routine_indicator.off()
             self.routine_button = Button(ROUTINE_BUTTON_PIN)
-
-            def _set_interrupt():
-                self.routine_interrupt = True
-                self.routine_indicator.on()
-
-            self.routine_button.when_pressed = _set_interrupt
         except Exception as e:
             logging.error('Could not connect to GPIO')
+            raise(e)
 
         self.routines = list_routines()
         self.wall = Wall(self.comm)
@@ -82,9 +71,8 @@ class Controller(Thread):
 
     def run(self):
         while self.active:
-            if self.routine_interrupt:
-                self.routine_interrupt = False
-                self.run_routine(random.choice(self.routines.keys()))
+            self.routine_button.wait_for_press(timeout=None)
+            self.run_routine(random.choice(self.routines.keys()))
 
     # Connect to COM port in order to run
     def connect_comm(self, com_port, retry=5, timeout=DEFAULT_TIMEOUT):
@@ -99,12 +87,6 @@ class Controller(Thread):
 
         raise IOError('Failed to connect to wall on comm: {}'.format(com_port))
 
-    def load_intervals(self, intervals_file):
-        self.intervals = {}
-        with open(intervals_file, 'r') as file:
-            interval_config = yaml.load(file)
-            for date, intervals in interval_config.items():
-                self.intervals[date] = [ {'start': datetime.strptime(i['start'], '%H:%M').time(), 'stop': datetime.strptime(i['stop'], '%H:%M').time()} for i in intervals ]
 
 if __name__ == '__main__':
     com_port = DEFAULT_COM_PORT

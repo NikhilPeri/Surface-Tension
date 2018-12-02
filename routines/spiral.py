@@ -4,7 +4,7 @@ from lib.wall import Wall
 
 # Spiral wave run
 def run(wall):
-    for i in range(2):
+    for i in range(1):
         wall.write_servo('E', 3, 0.8)
         time.sleep(2)
 

@@ -8,7 +8,7 @@ from lib.wall import Wall
 
 BLACKLIST = [
     '__init__.py',
-    'sample_routine.py'
+    'sample_routine.py',
 ]
 
 # List all the routines available for the wall
@@ -16,7 +16,7 @@ def list_routines():
     routines = {}
 
     for routine in os.listdir('routines'):
-        if routine in BLACKLIST or not routine.endswith('.py'):
+        if routine in BLACKLIST or routine.startswith('test') or not routine.endswith('.py'):
             continue
         name = routine.replace('.py', '')
         module = importlib.import_module("routines.{}".format(name))

@@ -1,0 +1,9 @@
+[Unit]
+Description=Surface Tension Service
+
+[Service]
+Type=idle
+ExecStart=/bin/bash /home/pi/surface-tension/scripts/run
+
+[Install]
+WantedBy=multi-user.target

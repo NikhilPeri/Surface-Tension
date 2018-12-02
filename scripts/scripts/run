@@ -1,0 +1,1 @@
+cd /home/pi/surface-tension && /usr/bin/python -m lib.controller

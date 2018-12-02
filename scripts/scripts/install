@@ -1,0 +1,11 @@
+echo "STEP 1: Installing python dependencies..."
+pip install -r requirements.txt
+mkdir logs
+
+echo "STEP 2: Export enviroment variables..."
+export SURFACE_TENSION_DIR=`pwd`
+echo export SURFACE_TENSION_DIR=$SURFACE_TENSION_DIR >> ~/.bashrc
+
+echo "STEP 3: Install init.d config..."
+sudo cp config/init.d /etc/init.d/surface-tension
+sudo chmod +x /etc/init.d/surface-tension

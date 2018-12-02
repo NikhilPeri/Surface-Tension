@@ -50,32 +50,3 @@ class Wall(object):
             for servo in column.values():
                 servos.append(servo)
         return servos
-
-class FakeServo(Servo):
-    def __init__(self, row, column, plot):
-        self.row = row
-        self.column = column
-        self.plot = plot
-
-    def write(self, position):
-        import pdb; pdb.set_trace()
-        new_plot = self.plot.get_array()
-        new_plot[self.row][self.column] = 255*(1 + position)
-        self.plot.set_array(new_plot)
-        self.plot.figure.canvas.draw()
-
-class FakeWall(Wall):
-    def __init__(self):
-        self.plot = (
-            plt.figure()
-            .add_subplot(111)
-            .imshow(np.zeros((4, 14)))
-        )
-        plt.legend()
-        plt.show(block=False)
-
-        ROW_MAPPTINGS = {'E': 0, 'D': 1, 'C': 2, 'B': 3}
-        self.servos = DEFAULT_CHANNEL_MAPPINGS
-        for row, columns in self.servos.items():
-            for column, channel in columns.items():
-                self.servos[row][column] = FakeServo(ROW_MAPPTINGS[row], int(column), self.plot)

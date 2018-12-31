@@ -1,3 +1,6 @@
+DEFAULT_COM_PORT='/dev/ttyUSB0'
+DEFAULT_COM_BAUD=115200
+
 DAYS_OF_WEEK=['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 
 '''

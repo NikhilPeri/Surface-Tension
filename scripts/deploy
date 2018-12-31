@@ -1,0 +1,7 @@
+#! /bin/bash
+sudo systemctl stop surface-tension
+
+git pull
+pytest
+sudo systemctl start surface-tension
+sudo reboot

@@ -1,4 +1,3 @@
-import serial
 from lib.wall import Wall
 
 def run(wall):

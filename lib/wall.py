@@ -1,15 +1,15 @@
 import serial
 from time import sleep
-from lib.constants import DEFAULT_CHANNEL_MAPPINGS
+from lib.constants import DEFAULT_CHANNEL_MAPPINGS, DEFAULT_COM_PORT, DEFAULT_COM_BAUD
 from lib.servo import Servo
 import numpy as np
 
 ROWS=['E', 'D', 'C', 'B']
 # Wall object takes in it's own instance, set the servo to comm
 class Wall(object):
-    def __init__(self, comm=None, channel_mappings=DEFAULT_CHANNEL_MAPPINGS):
-        if comm is None or not comm.is_open():
-            self.comm = serial.Serial('dev/ttyUSB0', 115200)
+    def __init__(self, comm=None):
+        if comm is None or not comm.is_open:
+            self.comm = serial.Serial(DEFAULT_COM_PORT, DEFAULT_COM_BAUD)
         else:
             self.comm = comm
 

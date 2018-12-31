@@ -10,9 +10,9 @@ from datetime import datetime
 
 from routines import list_routines
 from lib.logger import configure_logger
+from lib.constants import DEFAULT_COM_PORT, DEFAULT_COM_BAUD
 from lib.wall import Wall
 
-DEFAULT_COM_PORT='/dev/ttyUSB0'
 ROUTINE_BUTTON_PIN=23
 ROUTINE_LED_PIN=24
 DEFAULT_TIMEOUT=15
@@ -78,7 +78,7 @@ class Controller(Thread):
     def connect_comm(self, com_port, retry=5, timeout=DEFAULT_TIMEOUT):
         for i in range(retry):
             try:
-                self.comm = serial.serial_for_url(com_port, baudrate=115200)
+                self.comm = serial.serial_for_url(com_port, baudrate=DEFAULT_COM_BAUD)
                 return self.comm
             except Exception as e:
                 logging.error(e)

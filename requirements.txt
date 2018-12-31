@@ -1,5 +1,8 @@
 pytest==3.6.1
 pytest-freezegun
-numpy==1.14.3
+gpiozero==1.4.1
+scikit_image==0.14.0
+numpy==1.15.3
+routines==0.0.2
 pyserial==3.4
-scikit-image
+PyYAML==3.13

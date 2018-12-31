@@ -9,7 +9,7 @@ lattice structure shown below.
 ## Methods
  **__init__(self, comm=None)**
   constructor
-  *comm* is a comm port on which the wall is connected if no value is specified the [DEFAULT_COM_BAUD]('../lib/constants.py') will be used
+  *comm* is a comm port on which the wall is connected if no value is specified the [DEFAULT_COM_BAUD](../lib/constants.py) will be used
 
 **reset(self)**
   moves all the servo to the fully retracted position

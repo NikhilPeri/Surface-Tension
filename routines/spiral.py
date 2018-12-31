@@ -112,5 +112,5 @@ def run(wall):
         wall.write_servo('C', 5, -1)
 
 if __name__ == '__main__':
-    wall = Wall(serial.Serial('/dev/ttyUSB0', 115200))
+    wall = Wall()
     run(wall)

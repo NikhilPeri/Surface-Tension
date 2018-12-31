@@ -11,7 +11,6 @@ from datetime import datetime
 from routines import list_routines
 from lib.logger import configure_logger
 from lib.wall import Wall
-from gpiozero import Button, LED
 
 DEFAULT_COM_PORT='/dev/ttyUSB0'
 ROUTINE_BUTTON_PIN=23
@@ -26,6 +25,7 @@ class Controller(Thread):
         self.connect_comm(com_port)
 
         try:
+            from gpiozero import Button, LED
             self.routine_indicator = LED(ROUTINE_LED_PIN)
             self.routine_indicator.on()
             time.sleep(3)

@@ -66,5 +66,5 @@ def run(wall):
     	time.sleep(3)
 
 if __name__ == '__main__':
-    wall = Wall(serial.Serial('/dev/ttyUSB0', 115200))
+    wall = Wall()
     run(wall)

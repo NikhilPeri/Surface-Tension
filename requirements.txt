@@ -5,4 +5,4 @@ scikit_image==0.14.0
 numpy==1.15.3
 routines==0.0.2
 pyserial==3.4
-PyYAML==3.13
+PyYAML==5.4
